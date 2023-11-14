@@ -33,35 +33,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   renderGallery(galleryItems);
 
-  // Initialize SimpleLightbox on gallery item click
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
-    history: true, // Enable navigation with browser history
+    history: true,
     elements: galleryItems.map(({ original, description }) => ({ src: original, caption: description })),
-    docClose: true, // Allow closing the lightbox by clicking outside the image
+    docClose: true,
   });
 
   // Add custom navigation buttons
-  lightbox.on('show.simplelightbox', function () {
-    const prevButton = document.createElement('button');
-    prevButton.classList.add('custom-button', 'prev-button');
-    prevButton.innerHTML = '&lt;';
+  const prevButton = document.getElementById('prevButton');
+  const nextButton = document.getElementById('nextButton');
 
-    const nextButton = document.createElement('button');
-    nextButton.classList.add('custom-button', 'next-button');
-    nextButton.innerHTML = '&gt;';
-
-    lightbox.content.appendChild(prevButton);
-    lightbox.content.appendChild(nextButton);
-
-    // Add event listeners for custom buttons
-    prevButton.addEventListener('click', () => lightbox.prev());
-    nextButton.addEventListener('click', () => lightbox.next());
-  });
+  prevButton.addEventListener('click', () => lightbox.prev());
+  nextButton.addEventListener('click', () => lightbox.next());
 });
-
-
 
 
 
