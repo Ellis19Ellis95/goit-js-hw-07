@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     instance.show();
   });
+   
   
   // Add event listeners for next and previous buttons
 nextButton.addEventListener('click', () => lightbox.next());
