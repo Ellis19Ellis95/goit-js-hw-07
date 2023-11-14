@@ -1,112 +1,65 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-import { galleryItems } from './gallery-items.js';
-
-const galleryList = document.querySelector('.gallery');
-
-function createGalleryItem({ preview, original, description }) {
-  const listItem = document.createElement('li');
-  listItem.classList.add('gallery__item');
-
-  const link = document.createElement('a');
-  link.classList.add('gallery__link');
-  link.href = original;
-
-  const image = document.createElement('img');
-  image.classList.add('gallery__image');
-  image.src = preview;
-  image.setAttribute('data-source', original);
-  image.alt = description;
-
-  link.appendChild(image);
-  listItem.appendChild(link);
-
-  return listItem;
-}
-
-function renderGallery(galleryItems) {
-  const galleryElements = galleryItems.map(createGalleryItem);
-  galleryList.innerHTML = ''; // Очистка списку перед вставкою нових елементів
-  galleryList.append(...galleryElements);
-}
-
-renderGallery(galleryItems);
-
-// Ініціалізація SimpleLightbox після створення та додання елементів галереї
 document.addEventListener('DOMContentLoaded', function () {
-  const lightbox = new SimpleLightbox('.gallery__item a', { captionsData: 'alt', captionDelay: 250 });
-});
+  const galleryList = document.querySelector('.gallery');
+  const imagesToDisplay = 9;
 
-// Решта коду для делегування подій, відкриття модального вікна та заборони переадресації залишається незмінною
+  function createGalleryItem({ preview, original, description }) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('gallery__item');
 
+    const link = document.createElement('a');
+    link.classList.add('gallery__link');
+    link.href = original;
 
-//Реалізація делегування та отримання URL великого зображення
+    const image = document.createElement('img');
+    image.classList.add('gallery__image');
+    image.src = preview;
+    image.setAttribute('data-source', original);
+    image.alt = description;
 
-galleryList.addEventListener('click', onGalleryItemClick);
+    link.appendChild(image);
+    listItem.appendChild(link);
 
-function onGalleryItemClick(event) {
-  event.preventDefault();
+    return listItem;
+  }
 
-  const target = event.target;
+  function renderGallery(galleryItems) {
+    const galleryElements = galleryItems.slice(0, imagesToDisplay).map(createGalleryItem);
+    galleryList.innerHTML = ''; 
+    galleryList.append(...galleryElements);
+  }
 
-  if (target.nodeName !== 'IMG') return;
+  renderGallery(galleryItems);
 
-  const largeImageUrl = target.dataset.source;
-
-  openModal(largeImageUrl);
-}
-
-//Відкриття модального вікна та заміна значення атрибута src
-
-function openModal(url) {
-  const instance = basicLightbox.create(`
-    <img src="${url}" width="800" height="600">
-  `);
-
-  instance.show();
-}
-
-
-//Заборона переадресації при кліку на зображення
-
-document.addEventListener('DOMContentLoaded', function () {
-  const gallery = document.querySelector('.gallery');
-
-  galleryItems.forEach(item => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    const img = document.createElement('img');
-
-    a.href = item.original;
-    a.classList.add('gallery__link');
-    
-    img.src = item.preview;
-    img.alt = item.description;
-    img.dataset.source = item.original;
-    img.classList.add('gallery__image');
-
-    a.appendChild(img);
-    li.appendChild(a);
-    gallery.appendChild(li);
-  });
-
-  gallery.addEventListener('click', function (event) {
+  
+  galleryList.addEventListener('click', function (event) {
     event.preventDefault();
 
-    if (event.target.classList.contains('gallery__image')) {
-      const largeImageSource = event.target.dataset.source;
+    const target = event.target;
 
-      
-      const instance = basicLightbox.create(`
-        <img src="${largeImageSource}" alt="Modal Image">
-      `);
+    if (target.nodeName !== 'IMG') return;
 
-      instance.show();
-    }
+    const largeImageUrl = target.dataset.source;
+
+    
+    const instance = basicLightbox.create(`
+      <img src="${largeImageUrl}" alt="Modal Image">
+    `);
+
+    instance.show();
   });
 });
 
-
+document.addEventListener('DOMContentLoaded', function () {
+  const gallery = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    history: true,
+    docClose: true,
+    close: true,
+    nav: true,
+    buttons: true,
+  });
+});
