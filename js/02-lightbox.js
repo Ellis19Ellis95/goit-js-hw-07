@@ -7,15 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     captionDelay: 250,
     history: true,
     docClose: true,
-  });
-
-  lightbox.on('show.simplelightbox', function (e) {
-    const currentImageIndex = lightbox.currentImageIndex;
-    const prevButton = lightbox.outer.querySelector('.sl-prev');
-    const nextButton = lightbox.outer.querySelector('.sl-next');
-
-    prevButton.innerHTML = `&lt; ${currentImageIndex + 1}`;
-    nextButton.innerHTML = `${currentImageIndex + 1} &gt;`;
+    nav: true, // Додає кнопки гортання
   });
 
   gallery.addEventListener('click', function (event) {
