@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
   
     function renderGallery(galleryItems) {
       const galleryElements = galleryItems.slice(0, imagesToDisplay).map(createGalleryItem);
-      galleryList.innerHTML = ''; // Clear the list before adding new items
+      galleryList.innerHTML = ''; 
       galleryList.append(...galleryElements);
     }
   
     renderGallery(galleryItems);
   
-    // Initialize basicLightbox on gallery item click
+    
     galleryList.addEventListener('click', function (event) {
       event.preventDefault();
   
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
       const largeImageUrl = target.dataset.source;
   
-      // Open modal with the large image
+      
       const instance = basicLightbox.create(`
         <img src="${largeImageUrl}" alt="Modal Image">
       `);
