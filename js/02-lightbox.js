@@ -1,5 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+
 document.addEventListener('DOMContentLoaded', function () {
   const galleryList = document.querySelector('.gallery');
   const imagesToDisplay = 9;
@@ -43,10 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add custom navigation buttons
   lightbox.on('show.simplelightbox', function () {
-    const closeButton = document.querySelector('.sl-close');
-    const navigation = document.createElement('div');
-    navigation.classList.add('custom-navigation');
-
     const prevButton = document.createElement('button');
     prevButton.classList.add('custom-button', 'prev-button');
     prevButton.innerHTML = '&lt;';
@@ -55,27 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
     nextButton.classList.add('custom-button', 'next-button');
     nextButton.innerHTML = '&gt;';
 
-    navigation.appendChild(prevButton);
-    navigation.appendChild(nextButton);
-
-    closeButton.parentNode.insertBefore(navigation, closeButton.nextSibling);
+    lightbox.content.appendChild(prevButton);
+    lightbox.content.appendChild(nextButton);
 
     // Add event listeners for custom buttons
     prevButton.addEventListener('click', () => lightbox.prev());
     nextButton.addEventListener('click', () => lightbox.next());
   });
-
-  // Remove custom navigation when the lightbox is closed
-  lightbox.on('close.simplelightbox', function () {
-    const customNavigation = document.querySelector('.custom-navigation');
-    if (customNavigation) {
-      customNavigation.remove();
-    }
-  });
 });
-   
-
-
 
 
 
