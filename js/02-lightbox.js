@@ -2,6 +2,8 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 document.addEventListener('DOMContentLoaded', function () {
   const galleryList = document.querySelector('.gallery');
+  const prevButton = document.getElementById('prevButton');
+  const nextButton = document.getElementById('nextButton');
   const imagesToDisplay = 9;
 
   function createGalleryItem({ preview, original, description }) {
@@ -26,36 +28,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function renderGallery(galleryItems) {
     const galleryElements = galleryItems.slice(0, imagesToDisplay).map(createGalleryItem);
-    galleryList.innerHTML = ''; 
+    galleryList.innerHTML = '';
     galleryList.append(...galleryElements);
   }
 
   renderGallery(galleryItems);
 
-  
-  galleryList.addEventListener('click', function (event) {
-    event.preventDefault();
-
-    const target = event.target;
-
-    if (target.nodeName !== 'IMG') return;
-
-    const largeImageUrl = target.dataset.source;
-
-    
-    const instance = basicLightbox.create(`
-      <img src="${largeImageUrl}" alt="Modal Image">
-    `);
-
-    instance.show();
+  // Initialize SimpleLightbox on gallery item click
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    history: true, // Enable navigation with browser history
+    elements: galleryItems.map(({ original, description }) => ({ src: original, caption: description })),
   });
-   
-  
-  // Add event listeners for next and previous buttons
-nextButton.addEventListener('click', () => lightbox.next());
-prevButton.addEventListener('click', () => lightbox.prev());
 
+  // Add event listeners for next and previous buttons
+  nextButton.addEventListener('click', () => lightbox.next());
+  prevButton.addEventListener('click', () => lightbox.prev());
 });
+   
+
 
 
 
