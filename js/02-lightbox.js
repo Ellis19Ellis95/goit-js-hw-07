@@ -1,5 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+
 document.addEventListener('DOMContentLoaded', function () {
   const gallery = document.querySelector('.gallery');
   const lightbox = new SimpleLightbox('.gallery a', {
@@ -7,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     captionDelay: 250,
     history: true,
     docClose: true,
-    nav: true, // Додає кнопки гортання
+    close: true,
+    nav: true,
+    buttons: true,
   });
 
   gallery.addEventListener('click', function (event) {
@@ -19,6 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+
+
+
 
 
 
