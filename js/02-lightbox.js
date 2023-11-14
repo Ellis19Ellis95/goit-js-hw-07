@@ -12,19 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
   gallery.addEventListener('click', function (event) {
     event.preventDefault();
     if (event.target.tagName === 'IMG') {
-      lightbox.open();
+      const src = event.target.getAttribute('src');
+      const alt = event.target.getAttribute('alt');
+      lightbox.open({ source: src, caption: alt });
     }
   });
-
-  lightbox.on('show.simplelightbox', function () {
-    const prevButton = document.querySelector('.sl-prev');
-    const nextButton = document.querySelector('.sl-next');
-
-    if (prevButton) prevButton.innerHTML = '&lt;';
-    if (nextButton) nextButton.innerHTML = '&gt;';
-  });
 });
-
 
 
 
