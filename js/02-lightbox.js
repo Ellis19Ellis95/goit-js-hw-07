@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', function () {
     docClose: true,
   });
 
+  lightbox.on('show.simplelightbox', function (e) {
+    const currentImageIndex = lightbox.currentImageIndex;
+    const prevButton = lightbox.outer.querySelector('.sl-prev');
+    const nextButton = lightbox.outer.querySelector('.sl-next');
+
+    prevButton.innerHTML = `&lt; ${currentImageIndex + 1}`;
+    nextButton.innerHTML = `${currentImageIndex + 1} &gt;`;
+  });
+
   gallery.addEventListener('click', function (event) {
     event.preventDefault();
     if (event.target.tagName === 'IMG') {
@@ -18,8 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
-
 
 
 
