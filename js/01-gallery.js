@@ -3,7 +3,10 @@ import { galleryItems } from './gallery-items.js';
 
 //Створення та рендер розмітки галереї
 
+import { galleryItems } from './gallery-items.js';
+
 const galleryList = document.querySelector('.gallery');
+const imagesToDisplay = 9; // Кількість зображень для відображення
 
 function createGalleryItem({ preview, original, description }) {
   const listItem = document.createElement('li');
@@ -26,7 +29,8 @@ function createGalleryItem({ preview, original, description }) {
 }
 
 function renderGallery(galleryItems) {
-  const galleryElements = galleryItems.map(createGalleryItem);
+  const galleryElements = galleryItems.slice(0, imagesToDisplay).map(createGalleryItem);
+  galleryList.innerHTML = ''; // Очистка списку перед вставкою нових елементів
   galleryList.append(...galleryElements);
 }
 
