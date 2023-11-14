@@ -2,8 +2,6 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 document.addEventListener('DOMContentLoaded', function () {
   const galleryList = document.querySelector('.gallery');
-  const prevButton = document.getElementById('prevButton');
-  const nextButton = document.getElementById('nextButton');
   const imagesToDisplay = 9;
 
   function createGalleryItem({ preview, original, description }) {
@@ -40,11 +38,40 @@ document.addEventListener('DOMContentLoaded', function () {
     captionDelay: 250,
     history: true, // Enable navigation with browser history
     elements: galleryItems.map(({ original, description }) => ({ src: original, caption: description })),
+    docClose: true, // Allow closing the lightbox by clicking outside the image
   });
 
-  // Add event listeners for next and previous buttons
-  nextButton.addEventListener('click', () => lightbox.next());
-  prevButton.addEventListener('click', () => lightbox.prev());
+  // Add custom navigation buttons
+  lightbox.on('show.simplelightbox', function () {
+    const closeButton = document.querySelector('.sl-close');
+    const navigation = document.createElement('div');
+    navigation.classList.add('custom-navigation');
+
+    const prevButton = document.createElement('button');
+    prevButton.classList.add('custom-button', 'prev-button');
+    prevButton.innerHTML = '&lt;';
+
+    const nextButton = document.createElement('button');
+    nextButton.classList.add('custom-button', 'next-button');
+    nextButton.innerHTML = '&gt;';
+
+    navigation.appendChild(prevButton);
+    navigation.appendChild(nextButton);
+
+    closeButton.parentNode.insertBefore(navigation, closeButton.nextSibling);
+
+    // Add event listeners for custom buttons
+    prevButton.addEventListener('click', () => lightbox.prev());
+    nextButton.addEventListener('click', () => lightbox.next());
+  });
+
+  // Remove custom navigation when the lightbox is closed
+  lightbox.on('close.simplelightbox', function () {
+    const customNavigation = document.querySelector('.custom-navigation');
+    if (customNavigation) {
+      customNavigation.remove();
+    }
+  });
 });
    
 
