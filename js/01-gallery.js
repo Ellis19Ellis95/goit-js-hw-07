@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
   
     function renderGallery(galleryItems) {
       const galleryElements = galleryItems.slice(0, imagesToDisplay).map(createGalleryItem).join('');
-      galleryList.innerHTML = galleryElements;
+      galleryList.innerHTML = '';
+      galleryList.insertAdjacentHTML('beforeend', galleryElements);
     }
   
     renderGallery(galleryItems);
