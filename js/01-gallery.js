@@ -22,24 +22,22 @@ document.addEventListener('DOMContentLoaded', function () {
   
     renderGallery(galleryItems);
   
+    galleryList.addEventListener('click', function (event) {
+      event.preventDefault();
   
-  galleryList.addEventListener('click', function (event) {
-    event.preventDefault();
-
-    const target = event.target;
-
-    if (target.nodeName !== 'IMG') return;
-
-    const largeImageUrl = target.dataset.source;
-
-    
-    const instance = basicLightbox.create(`
-      <img src="${largeImageUrl}" alt="Modal Image">
-    `);
-
-    instance.show();
+      const target = event.target;
+  
+      if (target.nodeName !== 'IMG') return;
+  
+      const largeImageUrl = target.dataset.source;
+  
+      const instance = basicLightbox.create(`
+        <img src="${largeImageUrl}" alt="Modal Image">
+      `);
+  
+      instance.show();
+    });
   });
-});
 
 
 
