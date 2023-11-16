@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
     const galleryList = document.querySelector('.gallery');
     const imagesToDisplay = 9;
   
@@ -39,10 +39,3 @@ document.addEventListener('DOMContentLoaded', function () {
       instance.show();
     });
   });
-
-
-
-
-
-
-
