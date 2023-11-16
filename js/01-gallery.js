@@ -3,20 +3,19 @@ import { galleryItems } from './gallery-items.js';
 document.addEventListener('DOMContentLoaded', function () {
     const galleryList = document.querySelector('.gallery');
     const imagesToDisplay = 9;
+    let galleryMarkup = '';
   
-    const galleryItems = [
-      // Ось тут має бути масив об'єктів з даними для галереї
-    ];
+    galleryItems.slice(0, imagesToDisplay).forEach(({ preview, original, description }) => {
+      galleryMarkup += `
+        <li class="gallery__item">
+          <a class="gallery__link" href="${original}">
+            <img class="gallery__image" src="${preview}" data-source="${original}" alt="${description}" />
+          </a>
+        </li>
+      `;
+    });
   
-    const galleryElements = galleryItems.slice(0, imagesToDisplay).map(({ preview, original, description }) => `
-      <li class="gallery__item">
-        <a class="gallery__link" href="${original}">
-          <img class="gallery__image" src="${preview}" data-source="${original}" alt="${description}" />
-        </a>
-      </li>
-    `).join('');
-  
-    galleryList.insertAdjacentHTML('beforeend', galleryElements);
+    galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
   
     galleryList.addEventListener('click', function (event) {
       event.preventDefault();
