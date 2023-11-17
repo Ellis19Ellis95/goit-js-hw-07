@@ -1,11 +1,11 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-document.addEventListener('DOMContentLoaded', function () {
+
+  document.addEventListener('DOMContentLoaded', function () {
     const galleryList = document.querySelector('.gallery');
-    const imagesToDisplay = 9;
     let galleryMarkup = '';
   
-    galleryItems.slice(0, imagesToDisplay).forEach(({ preview, original, description }) => {
+    galleryItems.forEach(({ preview, original, description }) => {
       galleryMarkup += `
         <li class="gallery__item">
           <a class="gallery__link" href="${original}">
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (target.nodeName !== 'IMG') return;
   
       const largeImageUrl = target.dataset.source;
-      
+  
       const instance = basicLightbox.create(`
         <img src="${largeImageUrl}" alt="Modal Image">
       `);
@@ -32,4 +32,3 @@ document.addEventListener('DOMContentLoaded', function () {
       instance.show();
     });
   });
-
